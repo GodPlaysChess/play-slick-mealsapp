@@ -1,0 +1,30 @@
+1) Create simple html page without any design, where the several meals are loaded. (all, say)
+
+2) User - mark column (show average)                            partually
+
+3) Create DB (SQL or H2 - investigate)                          investigated
+    --> read from/save to file, will need to parse html anyway, at least once.
+
+4) Create expand on scroll
+
+5) Sortings on columns
+
+6) Styling
+
+============ Deploy to GAE ==================
+
+7) Admin mode ?
+
+8) Relevance ?
+
+9) Filters ?
+
+
+
+
+++++++++++++++++++++++
+Choose DB framework  -> SORM        /   Anorm ans Slick are also worth knowing, but SORM is simplest anyway
+Choose DB engine  -> SQL? / H2
+Choose web server  -> Google Application Engine
+Choose
+
