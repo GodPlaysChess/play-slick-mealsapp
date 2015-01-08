@@ -44,7 +44,7 @@ object Application extends Controller {
 //        .list
     }
 
-  }
+
 
   def addDish() = Action { implicit request =>
     val meal = mealForm.bindFromRequest.get
