@@ -16,18 +16,33 @@ object Tables {
   }
 
   val dishes: TableQuery[Dishes] = TableQuery[Dishes]
-  
-  class DishScore(tag: Tag) extends Table[(Long, Double)](tag, "DISH_SCORE") {
+
+  /**
+   *            Dish Scores
+   *   sId    |   dishId    |     value
+   *    1     |      1      |       5
+   *    2     |      1      |       6
+   *    3     |      2      |       7
+   */
+
+  class DishScore(tag: Tag) extends Table[(Long, Long, Double)](tag, "DISH_SCORE") {
+    def sId = column[Long]("SCORE_ID", O.PrimaryKey, O.AutoInc)
     def dishId = column[Long]("DISH_ID")
     def value = column[Double]("VALUE")
 
-    override def * = (dishId, value)
+    override def * = (sId, dishId, value)
+    def dish = foreignKey("DISH_FK", dishId, dishes)(_.id)
   }
   
   val dishscores = TableQuery[DishScore]
   
   implicit class DishExtentions[C[_]](q: Query[Dishes, Double, C]) {
     def withScores = q.join(dishscores).on(_.id === _.dishId)
+  }
+  object Examples {
+    val joinCondition = (d: Dishes, s: DishScore) => d.id === s.dishId
+    val joinQuery = dishes join dishscores on joinCondition
+    // then can do  joinQuery foreach println
   }
 }
 

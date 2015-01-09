@@ -23,33 +23,36 @@ object Application extends Controller {
   def allDishes = Action { implicit request =>
     db.withSession { implicit session =>
       val all: List[Dish] = dishes.list
-      val scores = queryScores
-      Ok(views.html.dishes(all, scores.mapValues(x => x.size/x.sum), mealForm))  // thats on scala side. I want on DB side!
+      val scores = queryAvg
+      Ok(views.html.dishes(all, queryAvg, mealForm))  // thats on scala side. I want on DB side!
     }
   }
   
   // on scala collection side.. but I want to use SQL agregate statements.
-  private def queryScores: Map[Long, List[Double]] = {
+  private def queryScores/*: Map[Long, List[Double]]*/ = {
     db withSession { implicit session =>
-      dishscores.list.groupBy(_._1).mapValues(_.map(_._2))
+      dishscores
+        .groupBy(_.dishId)
+        .map{case (id, scores) => (id, scores.map(_.value)) }
+        .buildColl[Set]
     }
   }
   
   //SQL
-  private def queryAvg: Map[Long, Double] = { ???
-//    db withSession { implicit session =>
-//      dishscores
-//        .groupBy(_.dishId)
-//        .map { case (dish, score) => (dish, score.map(_.value).avg.get) }
-//        .list
+  private def queryAvg: Set[(Long, Option[Double])] = {
+    db withSession { implicit session =>
+      dishscores
+        .groupBy(_.dishId)  // query: (dishid, Seq[ ( sId, dishId, value) ] )
+        .map { case (dish, scoreSeq) => (dish, scoreSeq.map(_.value).avg) }   // extracting a value, and mapping average
+        .buildColl[Set]
     }
-
 
 
   def addDish() = Action { implicit request =>
     val meal = mealForm.bindFromRequest.get
     db.withSession { implicit session =>
       dishes.insert(Dish(0, meal))
+//      dishes += Dish(0, meal)
     }
     Redirect(routes.Application.allDishes())
   }
