@@ -64,11 +64,8 @@ object Application extends Controller {
 
   def addLike(id: Long) = Action { implicit request =>
     db.withSession { implicit session =>
-      //      dishes.filter(_.id === id).map(_.likes + 1).execute
       val q = dishes.filter(_.id === id).map(_.likes)
       q.update(q.first + 1)
-      //      val l = dishes.filter(_.id === id).map(_.likes).first       // sure it can be done much better
-      //      dishes.filter(_.id === id).map(_.likes).update(l + 1)
     }
     Redirect(routes.Application.allDishes())
   }
@@ -85,7 +82,9 @@ object Application extends Controller {
     db withSession {
       implicit session =>
         dishes.ddl.create
-        dishes += Dish(1, "One Dish")
+        dishes += Dish(1, "Schweinschnitzel Mailand")
+        dishes += Dish(1, "Hanhenbrust Zuricher Art")
+        dishes += Dish(1, "Piccolinos crap")
         dishscores.ddl.create
     }
     Redirect(routes.Application.index())

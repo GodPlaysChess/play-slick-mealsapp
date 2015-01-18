@@ -1,30 +1,43 @@
-1) Create simple html page without any design, where the several meals are loaded. (all, say)
+Backlog:
 
-2) User - mark column (show average)                            partually
+== DB ==
+ - sorting
+ - filters
 
-3) Create DB (SQL or H2 - investigate)                          investigated
-    --> read from/save to file, will need to parse html anyway, at least once.
 
-4) Create expand on scroll
+== Backend ==
+- make two different types of account: user or admin
+- make different rights:
+- admin can delete or add meals
+- user can only evaluate/like and only once.
+ 
+== General ==
+- stats on meal (on DB site. for example, consider where to store it. Separate table with joining on id?)
+- show stats (in new window? or just next to the chosen meal? Mb do something and then decide what's more convenient
 
-5) Sortings on columns
+- find out how to get initial data. means read the initial html? or they have website?
+ 
+== Algorithms ==
+- populate with random data (10 different ppl have random distribution over meals)
+- implement similarity rating (means this guy have similar taste, and this one is not)
+            suggestions/estimated value on unrated meal
 
-6) Styling
+== Security ==
+- avoid injections on admin site
+- acc protection (hashed password, email verification)
+
 
 ============ Deploy to GAE ==================
+- deploy app to web server
+- test in real environment
 
-7) Admin mode ?
-
-8) Relevance ?
-
-9) Filters ?
-
+== Design ==
+-Create expand on scroll ?? not yet relevant, unless have a huge amount of data
 
 
-
-++++++++++++++++++++++
-Choose DB framework  -> SORM        /   Anorm ans Slick are also worth knowing, but SORM is simplest anyway
-Choose DB engine  -> SQL? / H2
+++++++++++++++++++++++ misc
+Choose DB framework  -> SORM  -> Slick       /   Anorm ans Slick are also worth knowing, but SORM is simplest anyway
+Choose DB engine  -> SQL? / H2  -> H2 for now
 Choose web server  -> Google Application Engine
 Choose
 
