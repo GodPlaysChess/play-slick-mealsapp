@@ -1,40 +1,44 @@
-@(meals: List[models.slick.Dish], scores: Map[Long, Double], mealForm: Form[String])
+@(meals: List[models.slick.Dish], scores: Map[Long, Option[Double]], mealForm: Form[String])
 
 @import helper._
 
 @main("All meals") {
-
-    <h1>@meals.size meal(s)</h1>
-    <table>
-    @meals.map { meal =>
-        <tr>
-            <td>@meal.name</td>
-            <td>@form(routes.Application.deleteDish(meal.id)) { <input type="SUBMIT" value="delete"> } </td>
-            <td>@meal.likes liked</td>
-            <td>@form(routes.Application.addLike(meal.id)) { <input type="SUBMIT" value="like"> }</td>
-            <td>@form(routes.Application.evaluateDish(meal.id)) {
-                <label>
-                    <input type="radio" name="mark" value="1">
-                </label> bad <br>
-                <label>
-                    <input type="radio" checked="true" name="mark" value="2">
-                </label> fine <br>
-                <label>
-                    <input type="radio" name="mark" value="3">
-                </label> perfect <br>
-                <input type="submit" value="evaluation">
+    <div class="mainblock">
+        <h1>@meals.size meal(s)</h1>
+        <br>
+        <table>
+        @meals.map { meal =>
+            <tr>
+                <td><h4>@meal.name @(scores.getOrElse(meal.id, Some(0d)).get.formatted("%2.2f")) </h4></td>
+                <td>@form(routes.Application.addLike(meal.id)) {
+                    <button type="SUBMIT" class="btn btn-success btn-sm" value="Get">
+                        <span class="glyphicon glyphicon-heart"> @meal.likes </span>
+                    </button>
+                }</td>
+                <td>@form(routes.Application.evaluateDish(meal.id)) {
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button type="submit" class="btn btn-default" name="mark" value="0">terrible</button>
+                        <button type="submit" class="btn btn-default" name="mark" value="1">fine</button>
+                        <button type="submit" class="btn btn-default" name="mark" value="2">perfect</button>
+                    </div>
                 }
-            </td>
-            <td>  @(scores.getOrElse(meal.id, 0d).formatted("%2.2f")) </td>
-        </tr>
-    }
-    </table>
+                </td>
 
-    <h2> Add a new meal </h2>
-    @form(routes.Application.addDish()) {
-        @inputText(mealForm("label"))
-        <input type="submit" value="Create">
-    }
+                <td>@form(routes.Application.deleteDish(meal.id)) {
+                    <button type="SUBMIT" class="btn btn-danger btn-sm">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                }
+            </tr>
+        }
+        </table>
+        <br/>
+        <br/>
+        <br/>
 
-
+        @form(routes.Application.addDish()) {
+            @bootstrap3.textInputWithButton(mealForm("name"), "Type your meal here...")
+            @*for some reason, placeholder, yet cuts everything before first space*@
+        }
+    </div>
 }

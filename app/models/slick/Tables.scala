@@ -10,9 +10,10 @@ object Tables {
   class Dishes(tag: Tag) extends Table[models.slick.Dish](tag, "DISHES") {
     def id = column[Long]("DISH_ID", O.PrimaryKey, O.AutoInc)
     def name = column[String]("DISH_NAME")
-    def likes = column[Int]("LIKES")
-
+    def likes = column[Int]("LIKES") 
+    
     override def * : ProvenShape[Dish] = (id, name, likes) <> (Dish.tupled, Dish.unapply)
+//    def scores = foreignKey("DISH_FK", id, dishScores)(_.id)
   }
 
   val dishes: TableQuery[Dishes] = TableQuery[Dishes]
@@ -31,7 +32,6 @@ object Tables {
     def value = column[Double]("VALUE")
 
     override def * = (sId, dishId, value)
-    def dish = foreignKey("DISH_FK", dishId, dishes)(_.id)
   }
   
   val dishscores = TableQuery[DishScore]
