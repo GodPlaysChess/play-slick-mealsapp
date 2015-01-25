@@ -2,9 +2,31 @@
 
 @import helper._
 
+
 @main("All meals") {
+    <script>
+        $( document ).ready( function() {
+            $("#sort-name" ).on('click', function() {
+                $(this).removeClass("glyphicon-chevron-down");
+                $(this).addClass("glyphicon-chevron-up");
+                $(this).toggleClass()
+            });
+        });
+    </script>
+
     <div class="mainblock">
+        <button></button>
         <h1>@meals.size meal(s)</h1>
+        @form(routes.Application.overview("dsc")) {
+            <button type="SUBMIT" class="btn btn-danger btn-sm">
+                <span class="glyphicon glyphicon-chevron-up" id="sort-name"></span>
+            </button>
+        }
+        @form(routes.Application.overview("asc")) {
+            <button type="SUBMIT" class="btn btn-danger btn-sm">
+                <span class="glyphicon glyphicon-chevron-down sortable"></span>
+            </button>
+        }
         <br>
         <table>
         @meals.map { meal =>

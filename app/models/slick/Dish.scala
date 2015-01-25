@@ -1,20 +1,76 @@
 package models.slick
 
-import models.slick.Tables.Dishes
-import play.api.db.DB
+import models.slick.Tables._
+import scala.slick.driver.H2Driver.simple._
+import DatabaseSetup.db
+
 
 import scala.slick.lifted.TableQuery
 
-/**
- * Created by Gleb on 1/4/2015.
- */
-
 case class Dish(id: Long, name: String, likes: Int = 0)
 
-object Dish {
-  val meals = TableQuery[Dishes]
+object DishDao {
+  val dishes: TableQuery[Dishes] = TableQuery[Dishes]
+  val dishscores = TableQuery[DishScore]
 
-  def list = DB.withSession{ implicit session =>
-    meals.sortBy(_.name.asc).list
+  def list: List[Dish] = db.withSession { implicit session =>
+    dishes.sortBy(_.name.asc).list
   }
+
+  def listDesc: List[Dish] = db.withSession { implicit session =>
+    dishes.sortBy(_.name.desc).list
+  }
+
+  def add(name: String) = {
+    db.withSession { implicit session =>
+      dishes += Dish(0, name)
+    }
+  }
+
+  def delete(id: Long) = {
+    db.withSession { implicit session =>
+      dishes.filter(_.id === id).delete
+    }
+  }
+
+  def addLike(id: Long) = {
+    db.withSession { implicit session =>
+      val q = dishes.filter(_.id === id).map(_.likes)
+      q.update(q.first + 1)
+    }
+  }
+
+  def queryAvgScore: Set[(Long, Option[Double])] = {
+    db withSession { implicit session =>
+      dishscores
+        .groupBy(_.dishId) // query: (dishid, Seq[ ( sId, dishId, value) ] )
+        .map { case (dish, scoreSeq) => (dish, scoreSeq.map(_.value).avg)} // extracting a value, and mapping average
+        .buildColl[Set]
+    }
+  }
+
+  def updateScore(id: Long, score: Long) = {
+    db.withSession { implicit session =>
+      dishscores +=(0, id, score)
+    }
+  }
+  
+  def scores(id: Long): Seq[Double] = {
+    db.withSession { implicit session =>
+      dishscores.filter(_.dishId === id).map(_.value).buildColl[Seq]
+    }
+  }
+
+
+  implicit class DishExtentions[C[_]](q: Query[Dishes, Double, C]) {
+    def withScores = q.join(dishscores).on(_.id === _.dishId)
+  }
+
+  object Examples {
+    val joinCondition = (d: Dishes, s: DishScore) => d.id === s.dishId
+    val joinQuery = dishes join dishscores on joinCondition
+    // then can do  joinQuery foreach println
+  }
+
+
 }

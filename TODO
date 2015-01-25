@@ -14,6 +14,7 @@ Backlog:
 == General ==
 - stats on meal (on DB site. for example, consider where to store it. Separate table with joining on id?)
 - show stats (in new window? or just next to the chosen meal? Mb do something and then decide what's more convenient
+- show just your evaluations/prefernces.
 
 - find out how to get initial data. means read the initial html? or they have website?
  
@@ -25,6 +26,11 @@ Backlog:
 == Security ==
 - avoid injections on admin site
 - acc protection (hashed password, email verification)
+
+
+== May be impossible ==
+- order from web-interface.
+- keep track of your orderings (stats : money spent, calories intake, bla-bla )
 
 
 ============ Deploy to GAE ==================

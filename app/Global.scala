@@ -1,4 +1,4 @@
-import models.slick.Dish
+import models.slick.Dish$
 import models.slick.Tables._
 import play.api._
 import scala.slick.driver.H2Driver.simple._
