@@ -1,11 +1,10 @@
 package controllers
 
-import models.slick.{DishDao, Dish, DatabaseSetup}
-import play.api._
-import play.api.mvc._
+import models.slick.DatabaseSetup.db
+import models.slick.{Dish, DishDao}
 import play.api.data.Form
 import play.api.data.Forms._
-import DatabaseSetup.db
+import play.api.mvc._
 
 object Application extends Controller {
 
@@ -53,18 +52,5 @@ object Application extends Controller {
     DishDao.updateScore(id, evalForm.bindFromRequest().get)
     Redirect(routes.Application.allDishes())
   }
-
-  /* move to Evolutions!*/
-//  def createTables = Action { implicit request =>
-//    db withSession {
-//      implicit session =>
-//        dishes.ddl.create
-//        dishes += Dish(1, "Schweinschnitzel Mailand")
-//        dishes += Dish(1, "Hanhenbrust Zuricher Art")
-//        dishes += Dish(1, "Piccolinos crap")
-//        dishscores.ddl.create
-//    }
-//    Redirect(routes.Application.index())
-//  }
 
 }

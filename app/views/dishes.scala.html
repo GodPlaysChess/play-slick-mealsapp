@@ -5,17 +5,24 @@
 
 @main("All meals") {
     <script>
-        $( document ).ready( function() {
-            $("#sort-name" ).on('click', function() {
-                $(this).removeClass("glyphicon-chevron-down");
-                $(this).addClass("glyphicon-chevron-up");
-                $(this).toggleClass()
+        $(document).ready( function() {
+            $("#g-ok").on('click', function() {
+                $(this).toggleClass("glyphicon-ok");
+                $(this).toggleClass("glyphicon-remove");
             });
         });
+
+		$(document).ready(function() {
+			$("#sort-button").on('click', function() {
+				var icon = $(this).find("span");
+				icon.toggleClass("glyphicon-chevron-up");
+				icon.toggleClass("glyphicon-chevron-down");
+			});
+		});
+
     </script>
 
     <div class="mainblock">
-        <button></button>
         <h1>@meals.size meal(s)</h1>
         @form(routes.Application.overview("dsc")) {
             <button type="SUBMIT" class="btn btn-danger btn-sm">
@@ -27,6 +34,11 @@
                 <span class="glyphicon glyphicon-chevron-down sortable"></span>
             </button>
         }
+
+		<button type="SUBMIT" class="btn btn-danger btn-sm" id="sort-button">
+			<span class="glyphicon glyphicon-chevron-up"></span>
+		</button>
+
         <br>
         <table>
         @meals.map { meal =>
@@ -58,9 +70,14 @@
         <br/>
         <br/>
 
-        @form(routes.Application.addDish()) {
+        <button type="SUBMIT" class="btn btn-warning btn-sm">
+            <span class="glyphicon glyphicon-ok" id="g-ok"></span>
+        </button>
+
+
+  @*      @form(routes.Application.addDish()) {
             @bootstrap3.textInputWithButton(mealForm("name"), "Type your meal here...")
-            @*for some reason, placeholder, yet cuts everything before first space*@
-        }
+            @*for some reason, placeholder, yet cuts everything before first space*@@*
+        }*@
     </div>
 }

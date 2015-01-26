@@ -4,6 +4,13 @@ Backlog:
  - sorting
  - filters
 
+ == Frontend ==
+  JQuery: make page dynamic
+  -  do not reload whole page on like
+  -  do not reload whole page on evaluation
+  -  do not reload whole page on sorting
+  -  do not reload whole page when add a new meal
+  // backend silently does stuff, and jquery updates html
 
 == Backend ==
 - make two different types of account: user or admin
@@ -14,7 +21,7 @@ Backlog:
 == General ==
 - stats on meal (on DB site. for example, consider where to store it. Separate table with joining on id?)
 - show stats (in new window? or just next to the chosen meal? Mb do something and then decide what's more convenient
-- show just your evaluations/prefernces.
+- show just your evaluations/preferences.
 
 - find out how to get initial data. means read the initial html? or they have website?
  

@@ -10,7 +10,7 @@ object Tables {
     def likes = column[Int]("LIKES") 
     
     override def * : ProvenShape[Dish] = (id, name, likes) <> (Dish.tupled, Dish.unapply)
-//    def scores = foreignKey("DISH_FK", id, dishScores)(_.id)
+    def scores = foreignKey("DISH_FK", id, DishDao.dishscores)(_.sId)
   }
 
   /**
