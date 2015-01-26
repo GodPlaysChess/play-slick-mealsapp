@@ -17,8 +17,14 @@
 				var icon = $(this).find("span");
 				icon.toggleClass("glyphicon-chevron-up");
 				icon.toggleClass("glyphicon-chevron-down");
-				sortTable($("#meal-table"), $(this).val());
-				var newValue = $(this).val() == "asc" ? "desc" : "asc";
+                /* sorting */
+                var ord = $(this).val();
+                $("#meal-table").dataTable({
+                    "order": [[1, ord]]
+                });
+
+//				sortTable($("#meal-table"), $(this).val());
+				var newValue = ord == "asc" ? "desc" : "asc";
 				console.log("value changed to " + newValue);
 				$(this).val(newValue);
 			});
