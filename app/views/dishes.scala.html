@@ -17,14 +17,36 @@
 				var icon = $(this).find("span");
 				icon.toggleClass("glyphicon-chevron-up");
 				icon.toggleClass("glyphicon-chevron-down");
+				sortTable($("#meal-table"), $(this).val());
+				var newValue = $(this).val() == "asc" ? "desc" : "asc";
+				console.log("value changed to " + newValue);
+				$(this).val(newValue);
 			});
 		});
+
+		function sortTable(table, order) {
+			var asc = order === "asc";
+			console.log("Now sorting...");
+			table.find('tr').sort(function(a, b) {
+				if (asc) {
+					console.log("now asc");
+					console.log(a.first());
+					console.log(a.first().text());
+					console.log(b.first());
+					console.log(b.first().text());
+					return a.first().text().toLowerCase().localeCompare(b.first().text().toLowerCase());
+				} else {
+					console.log("now else");
+					return b.first().text().toLowerCase().localeCompare(a.first().text().toLowerCase());
+				}
+			});
+		}
 
     </script>
 
     <div class="mainblock">
         <h1>@meals.size meal(s)</h1>
-        @form(routes.Application.overview("dsc")) {
+@*        @form(routes.Application.overview("dsc")) {
             <button type="SUBMIT" class="btn btn-danger btn-sm">
                 <span class="glyphicon glyphicon-chevron-up" id="sort-name"></span>
             </button>
@@ -33,14 +55,14 @@
             <button type="SUBMIT" class="btn btn-danger btn-sm">
                 <span class="glyphicon glyphicon-chevron-down sortable"></span>
             </button>
-        }
+        }*@
 
-		<button type="SUBMIT" class="btn btn-danger btn-sm" id="sort-button">
+		<button type="SUBMIT" class="btn btn-warning btn-sm" id="sort-button" value="asc">
 			<span class="glyphicon glyphicon-chevron-up"></span>
 		</button>
 
         <br>
-        <table>
+        <table id="meal-table">
         @meals.map { meal =>
             <tr>
                 <td><h4>@meal.name @(scores.getOrElse(meal.id, Some(0d)).get.formatted("%2.2f")) </h4></td>
