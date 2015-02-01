@@ -2,6 +2,7 @@ package controllers
 
 import models.slick.DatabaseSetup.db
 import models.slick.{Dish, DishDao}
+import play.api.Routes
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc._
@@ -11,6 +12,15 @@ object Application extends Controller {
   val mealForm = Form("name" -> nonEmptyText)
 
   val evalForm = Form("mark" -> number(min = 0, max = 2))
+
+  def javascriptRoutes = Action { implicit request =>
+    Ok(
+      Routes.javascriptRouter("jsRoutes")(
+        routes.javascript.Application.addDish,
+        routes.javascript.Application.addLike
+      )
+    ).as("text/javascript")
+  }
 
   def index = Action {
     Ok(views.html.index())

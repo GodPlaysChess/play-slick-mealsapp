@@ -4,108 +4,67 @@
 
 
 @main("All meals") {
-    <script>
-        $(document).ready( function() {
-            $("#g-ok").on('click', function() {
-                $(this).toggleClass("glyphicon-ok");
-                $(this).toggleClass("glyphicon-remove");
-            });
-        });
 
-		$(document).ready(function() {
-			$("#sort-button").on('click', function() {
-				var icon = $(this).find("span");
-				icon.toggleClass("glyphicon-chevron-up");
-				icon.toggleClass("glyphicon-chevron-down");
-                /* sorting */
-                var ord = $(this).val();
-                $("#meal-table").dataTable({
-                    "order": [[1, ord]]
-                });
-
-//				sortTable($("#meal-table"), $(this).val());
-				var newValue = ord == "asc" ? "desc" : "asc";
-				console.log("value changed to " + newValue);
-				$(this).val(newValue);
-			});
-		});
-
-		function sortTable(table, order) {
-			var asc = order === "asc";
-			console.log("Now sorting...");
-			table.find('tr').sort(function(a, b) {
-				if (asc) {
-					console.log("now asc");
-					console.log(a.first());
-					console.log(a.first().text());
-					console.log(b.first());
-					console.log(b.first().text());
-					return a.first().text().toLowerCase().localeCompare(b.first().text().toLowerCase());
-				} else {
-					console.log("now else");
-					return b.first().text().toLowerCase().localeCompare(a.first().text().toLowerCase());
-				}
-			});
-		}
-
-    </script>
+    <script src="@routes.Assets.at("javascripts/dishes.js")" type="text/javascript"></script>
 
     <div class="mainblock">
-        <h1>@meals.size meal(s)</h1>
-@*        @form(routes.Application.overview("dsc")) {
-            <button type="SUBMIT" class="btn btn-danger btn-sm">
-                <span class="glyphicon glyphicon-chevron-up" id="sort-name"></span>
-            </button>
-        }
-        @form(routes.Application.overview("asc")) {
-            <button type="SUBMIT" class="btn btn-danger btn-sm">
-                <span class="glyphicon glyphicon-chevron-down sortable"></span>
-            </button>
-        }*@
-
-		<button type="SUBMIT" class="btn btn-warning btn-sm" id="sort-button" value="asc">
-			<span class="glyphicon glyphicon-chevron-up"></span>
-		</button>
+        <button type="SUBMIT" class="btn btn-warning btn-sm" id="sort-button" value="asc">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        </button>
+        <button type="SUBMIT" class="btn btn-warning btn-sm" id="add-butt" value="asc">
+            <span class="glyphicon glyphicon-certificate"></span>
+        </button>
 
         <br>
-        <table id="meal-table">
-        @meals.map { meal =>
-            <tr>
-                <td><h4>@meal.name @(scores.getOrElse(meal.id, Some(0d)).get.formatted("%2.2f")) </h4></td>
-                <td>@form(routes.Application.addLike(meal.id)) {
-                    <button type="SUBMIT" class="btn btn-success btn-sm" value="Get">
-                        <span class="glyphicon glyphicon-heart"> @meal.likes </span>
-                    </button>
-                }</td>
-                <td>@form(routes.Application.evaluateDish(meal.id)) {
-                    <div class="btn-group" role="group" aria-label="...">
-                        <button type="submit" class="btn btn-default" name="mark" value="0">terrible</button>
-                        <button type="submit" class="btn btn-default" name="mark" value="1">fine</button>
-                        <button type="submit" class="btn btn-default" name="mark" value="2">perfect</button>
-                    </div>
-                }
-                </td>
+        <table cellspacing="1" id="meal-table" class="tablesorter table-hover">
+            <thead>
+                <tr>
+                    <th>Item name</th>
+                    <th>Avg</th>
+                    <th>Likes</th>
+                    <th> </th>
+                    <th> </th>
+                </tr>
+            </thead>
 
-                <td>@form(routes.Application.deleteDish(meal.id)) {
-                    <button type="SUBMIT" class="btn btn-danger btn-sm">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                }
-            </tr>
-        }
+            <tbody>
+            @meals.map { meal =>
+                <tr database-id="@meal.id">
+                    <td> @meal.name </td>
+                    <td> @(scores.getOrElse(meal.id, Some(0d)).get.formatted("%2.2f")) </td>
+                    <td>
+                        <button type="SUBMIT" class="btn btn-success btn-sm plus-like" value="Get">
+                            <span class="glyphicon glyphicon-heart"> @meal.likes </span>
+                        </button>
+                    </td>
+                    <td> @form(routes.Application.evaluateDish(meal.id)) {
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="submit" class="btn btn-default" name="mark" value="0">terrible</button>
+                            <button type="submit" class="btn btn-default" name="mark" value="1">fine</button>
+                            <button type="submit" class="btn btn-default" name="mark" value="2">perfect</button>
+                        </div>
+                    }
+                    </td>
+
+                    <td> @form(routes.Application.deleteDish(meal.id)) {
+                        <button type="SUBMIT" class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    }
+                </tr>
+            }
+            </tbody>
         </table>
         <br/>
         <br/>
-        <br/>
-
         <button type="SUBMIT" class="btn btn-warning btn-sm">
             <span class="glyphicon glyphicon-ok" id="g-ok"></span>
         </button>
 
 
-  @*      @form(routes.Application.addDish()) {
+        @form(routes.Application.addDish()) {
             @bootstrap3.textInputWithButton(mealForm("name"), "Type your meal here...")
-            @*for some reason, placeholder, yet cuts everything before first space*@@*
-        }*@
+            @*for some reason, placeholder, yet cuts everything before first space*@
+        }
     </div>
 }
