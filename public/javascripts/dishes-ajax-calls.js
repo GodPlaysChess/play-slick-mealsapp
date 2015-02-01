@@ -8,6 +8,7 @@ $(document).ready(function () {
     });
 });
 
+/** table sorting */
 $(document).ready(function () {
     $("#meal-table").tablesorter({
         headers: {
@@ -17,19 +18,35 @@ $(document).ready(function () {
 
     });
 });
-/** add like call */
+
+/** add Like */
 $(document).ready(function () {
     $(".plus-like").click(function () {
         /*   jsRoutes.controllers.Application.addDish().ajax();
          console.log("jquery called");*/
         var id = $(this).closest("tr").attr("database-id");
-        
+
         var likeButton = $(this).find("span.glyphicon");
         var oldval = +likeButton.text().trim()
         $.ajax(jsRoutes.controllers.Application.addLike(+id))
             .done(function () {
                 var newval = oldval + 1;
                 likeButton.text(" " + newval + " ");
+            })
+            .fail(function () {
+                console.log("failed")
+            });
+    });
+});
+
+/** remove entry */
+$(document).ready(function () {
+    $(".remove-dish").click(function () {
+        var row = $(this).closest("tr");
+        var id = +row.attr("database-id");
+        $.ajax(jsRoutes.controllers.Application.deleteDish(id))
+            .done(function () {
+                row.remove();
             })
             .fail(function () {
                 console.log("failed")

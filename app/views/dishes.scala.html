@@ -5,7 +5,7 @@
 
 @main("All meals") {
 
-    <script src="@routes.Assets.at("javascripts/dishes.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascripts/dishes-ajax-calls.js")" type="text/javascript"></script>
 
     <div class="mainblock">
         <button type="SUBMIT" class="btn btn-warning btn-sm" id="sort-button" value="asc">
@@ -46,11 +46,11 @@
                     }
                     </td>
 
-                    <td> @form(routes.Application.deleteDish(meal.id)) {
-                        <button type="SUBMIT" class="btn btn-danger btn-sm">
+                    <td>
+                        <button type="SUBMIT" class="btn btn-danger btn-sm remove-dish">
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
-                    }
+
                 </tr>
             }
             </tbody>

@@ -17,7 +17,8 @@ object Application extends Controller {
     Ok(
       Routes.javascriptRouter("jsRoutes")(
         routes.javascript.Application.addDish,
-        routes.javascript.Application.addLike
+        routes.javascript.Application.addLike,
+        routes.javascript.Application.deleteDish
       )
     ).as("text/javascript")
   }
