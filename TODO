@@ -11,13 +11,15 @@ Backlog:
   +  do not reload whole page on sorting
   -  do not reload whole page when add a new meal
   +  do not reload whole page when removing
-  // backend silently does stuff, and jquery updates html
+  -  evaluate by hovering over stars
 
 == Backend ==
-- make two different types of account: user or admin
-- make different rights:
-- admin can delete or add meals
++ make basic authentication
 - user can only evaluate/like and only once.
+
+?- make two different types of account: user or admin
+?- make different rights:
+?- admin can delete or add meals
  
 == General ==
 - stats on meal (on DB site. for example, consider where to store it. Separate table with joining on id?)

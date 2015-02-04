@@ -37,7 +37,7 @@
                             <span class="glyphicon glyphicon-heart"> @meal.likes </span>
                         </button>
                     </td>
-                    <td> @form(routes.Application.evaluateDish(meal.id)) {
+                    <td> @form(routes.MealsController.evaluateDish(meal.id)) {
                         <div class="btn-group" role="group" aria-label="...">
                             <button type="submit" class="btn btn-default" name="mark" value="0">terrible</button>
                             <button type="submit" class="btn btn-default" name="mark" value="1">fine</button>
@@ -62,7 +62,7 @@
         </button>
 
 
-        @form(routes.Application.addDish()) {
+        @form(routes.MealsController.addDish()) {
             @bootstrap3.textInputWithButton(mealForm("name"), "Type your meal here...")
             @*for some reason, placeholder, yet cuts everything before first space*@
         }

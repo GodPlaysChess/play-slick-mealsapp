@@ -1,11 +1,7 @@
-@()
+@(username: String)
 
 @main("Welcome to Play") {
-
-
-	<ul id="persons"></ul>
-
-	<form method="GET" action="@routes.Application.allDishes()">
+	<form method="GET" action="@routes.MealsController.allDishes()">
 		<button>GO TO MEALS WEB PAGE</button>
 	</form>
 }

@@ -29,6 +29,14 @@ object Tables {
     override def * = (sId, dishId, value)
   }
   
+  class Users(tag: Tag) extends Table[User](tag, "USERS") {
+    def id = column[Long]("USER_ID", O.PrimaryKey, O.AutoInc)
+    def name = column[String]("USERNAME")
+    def password = column[String]("PASSWORD")
+    
+    override def * : ProvenShape[User] = (id, name, password) <> (User.tupled, User.unapply)
+  }
+  
 
   
 
