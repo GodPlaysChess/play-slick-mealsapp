@@ -49,9 +49,12 @@ object DishDao {
     }
   }
 
-  def updateScore(id: Long, score: Long) = {
+  def updateScore(username: String, dishId: Long, score: Long) = {
     db.withSession { implicit session =>
-      dishscores +=(0, id, score)
+//      val q = for (s <- dishscores if s.username === username) yield s.value
+//      q.update(score).run
+        dishscores.insertOrUpdate(username, dishId, score)
+//      dishscores +=(username, dishId, score)
     }
   }
   

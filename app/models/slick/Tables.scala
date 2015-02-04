@@ -10,23 +10,24 @@ object Tables {
     def likes = column[Int]("LIKES") 
     
     override def * : ProvenShape[Dish] = (id, name, likes) <> (Dish.tupled, Dish.unapply)
-    def scores = foreignKey("DISH_FK", id, DishDao.dishscores)(_.sId)
+    def scores = foreignKey("DISH_FK", id, DishDao.dishscores)(_.dishId)
   }
 
   /**
    *            Dish Scores
-   *   sId    |   dishId    |     value
-   *    1     |      1      |       5
-   *    2     |      1      |       6
-   *    3     |      2      |       7
+   *   username    |   dishId    |     value
+   *       1       |      1      |       5
+   *       2       |      1      |       6
+   *       3       |      2      |       7
    */
 
-  class DishScore(tag: Tag) extends Table[(Long, Long, Double)](tag, "DISH_SCORES") {
-    def sId = column[Long]("SCORE_ID", O.PrimaryKey, O.AutoInc)
+  class DishScore(tag: Tag) extends Table[(String, Long, Double)](tag, "DISH_SCORES") {
+    def username = column[String]("USERNAME")
     def dishId = column[Long]("DISH_ID")
     def value = column[Double]("VALUE")
 
-    override def * = (sId, dishId, value)
+    override def * = (username, dishId, value)
+    def pk = primaryKey("pk_score", (username, dishId))
   }
   
   class Users(tag: Tag) extends Table[User](tag, "USERS") {

@@ -18,7 +18,8 @@ object MealsController extends Controller with Secured {
       Routes.javascriptRouter("jsRoutes")(
         routes.javascript.MealsController.addDish,
         routes.javascript.MealsController.addLike,
-        routes.javascript.MealsController.deleteDish
+        routes.javascript.MealsController.deleteDish,
+        routes.javascript.MealsController.evaluateDish
       )
     ).as("text/javascript")
   }
@@ -60,7 +61,7 @@ object MealsController extends Controller with Secured {
 
   def evaluateDish(id: Long) = withAuth { username =>
     implicit request =>
-      DishDao.updateScore(id, evalForm.bindFromRequest().get)
+      DishDao.updateScore(username, id, evalForm.bindFromRequest().get)
       Redirect(routes.MealsController.allDishes())
   }
 

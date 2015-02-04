@@ -15,7 +15,8 @@ Backlog:
 
 == Backend ==
 + make basic authentication
-- user can only evaluate/like and only once.
++ user can only evaluate/like and only once.
+- remove 'likes' from meals
 
 ?- make two different types of account: user or admin
 ?- make different rights:
