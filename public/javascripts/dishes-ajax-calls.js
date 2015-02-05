@@ -53,6 +53,26 @@ $(document).ready(function () {
     });
 });
 
+/** evaluate */
+$('#input-id').on('rating.change', function(event, value, caption) {
+    console.log(value);
+    console.log(caption);
+});
+
+//$(document).ready(function () {
+//    $(".btn-group").click(function () {
+//        var row = $(this).closest("tr");
+//        var id = +row.attr("database-id");
+//        $.ajax(jsRoutes.controllers.MealsController.deleteDish(id))
+//            .done(function () {
+//                row.remove();
+//            })
+//            .fail(function () {
+//                console.log("failed")
+//            });
+//    });
+//});
+
 $(document).ready(function () {
     $("#sort-button").on('click', function () {
         var icon = $(this).find("span");

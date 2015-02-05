@@ -38,12 +38,16 @@
                         </button>
                     </td>
                     <td> @form(routes.MealsController.evaluateDish(meal.id)) {
-                        <div class="btn-group" role="group" aria-label="...">
+                        <div class="btn-group" role="group" aria-label="..." >
                             <button type="submit" class="btn btn-default" name="mark" value="0">terrible</button>
                             <button type="submit" class="btn btn-default" name="mark" value="1">fine</button>
                             <button type="submit" class="btn btn-default" name="mark" value="2">perfect</button>
                         </div>
                     }
+                    </td>
+                    <td>
+                        @* rating update need here this.update(value) *@
+                        <input id="rating-system" type="number" class="rating" min="1" max="5" step="1" data-show-caption="false">
                     </td>
 
                     <td>

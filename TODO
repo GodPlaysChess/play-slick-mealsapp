@@ -12,6 +12,7 @@ Backlog:
   -  do not reload whole page when add a new meal
   +  do not reload whole page when removing
   -  evaluate by hovering over stars
+  - add logout
 
 == Backend ==
 + make basic authentication
