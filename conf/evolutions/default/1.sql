@@ -30,6 +30,7 @@ create table DISH_SCORES (
  );
  
  insert into USERS (USERNAME, PASSWORD) values ('gleb', 'gleb');
+ insert into USERS (USERNAME, PASSWORD) values ('admin', 'admin');
 
 
 # --- !Downs

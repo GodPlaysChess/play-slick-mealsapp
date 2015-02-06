@@ -13,6 +13,8 @@ Backlog:
   +  do not reload whole page when removing
   +  evaluate by hovering over stars
   - add logout
+  - bootstrap log-in form / make log-in page nicer
+
 
 == Backend ==
 + make basic authentication

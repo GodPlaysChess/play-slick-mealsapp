@@ -1,4 +1,4 @@
-@(meals: List[models.slick.Dish], scores: Map[Long, Option[Double]], uservalues: Map[Long, Double], mealForm: Form[String])
+@(meals: List[models.slick.Dish], scores: Map[Long, Option[Double]], uservalues: Map[Long, Double], mealForm: Form[String], username: String)
 
 @import helper._
 
@@ -55,10 +55,11 @@
 			</tbody>
 		</table>
 		<br/>
-
-		@form(routes.MealsController.addDish()) {
-			@bootstrap3.textInputWithButton(mealForm("name"), "Type your meal here...")
-			@*for some reason, placeholder, yet cuts everything before first space*@
+		@if(username == "admin") {
+			@form(routes.MealsController.addDish()) {
+				@bootstrap3.textInputWithButton(mealForm("name"), "Type your meal here...")
+				@*for some reason, placeholder, yet cuts everything before first space*@
+			}
 		}
 	</div>
 }

@@ -28,7 +28,7 @@ object MealsController extends Controller with Secured {
         val all: List[Dish] = DishDao.list
         val scores: Map[Long, Option[Double]] = DishDao.queryAvgScore.toMap
         val userValues: Map[Long, Double] = DishDao.queryValuesFor(username)
-        Ok(views.html.dishes(all, scores, userValues, mealForm))
+        Ok(views.html.dishes(all, scores, userValues, mealForm, username))
       }
   }
 
