@@ -1,12 +1,3 @@
-/**
- * Created by Gleb on 1/31/2015.
- */
-$(document).ready(function () {
-	$("#g-ok").on('click', function () {
-		$(this).toggleClass("glyphicon-ok");
-		$(this).toggleClass("glyphicon-remove");
-	});
-});
 
 /** table sorting */
 $(document).ready(function () {
@@ -21,8 +12,6 @@ $(document).ready(function () {
 /** add Like */
 $(document).ready(function () {
 	$(".plus-like").click(function () {
-		/*   jsRoutes.controllers.Application.addDish().ajax();
-		 console.log("jquery called");*/
 		var id = $(this).closest("tr").attr("database-id");
 
 		var likeButton = $(this).find("span.glyphicon");
@@ -66,30 +55,3 @@ $(document).ready(function () {
 	});
 });
 
-//$(document).ready(function () {
-//    $(".btn-group").click(function () {
-//        var row = $(this).closest("tr");
-//        var id = +row.attr("database-id");
-//        $.ajax(jsRoutes.controllers.MealsController.deleteDish(id))
-//            .done(function () {
-//                row.remove();
-//            })
-//            .fail(function () {
-//                console.log("failed")
-//            });
-//    });
-//});
-
-$(document).ready(function () {
-	$("#sort-button").on('click', function () {
-		var icon = $(this).find("span");
-		icon.toggleClass("glyphicon-chevron-up");
-		icon.toggleClass("glyphicon-chevron-down");
-		/* sorting */
-		var ord = $(this).val();
-
-		var newValue = ord == "asc" ? "desc" : "asc";
-		console.log("value changed to " + newValue);
-		$(this).val(newValue);
-	});
-});

@@ -9,14 +9,6 @@
 
 	<div class="mainblock">
 
-		<button type="SUBMIT" class="btn btn-warning btn-sm" id="sort-button" value="asc">
-			<span class="glyphicon glyphicon-chevron-up"></span>
-		</button>
-		<button type="SUBMIT" class="btn btn-warning btn-sm" id="add-butt" value="asc">
-			<span class="glyphicon glyphicon-certificate"></span>
-		</button>
-
-		<br>
 		<table cellspacing="1" id="meal-table" class="tablesorter table-hover">
 			<thead>
 				<tr>
@@ -63,11 +55,6 @@
 			</tbody>
 		</table>
 		<br/>
-		<br/>
-		<button type="SUBMIT" class="btn btn-warning btn-sm">
-			<span class="glyphicon glyphicon-ok" id="g-ok"></span>
-		</button>
-
 
 		@form(routes.MealsController.addDish()) {
 			@bootstrap3.textInputWithButton(mealForm("name"), "Type your meal here...")

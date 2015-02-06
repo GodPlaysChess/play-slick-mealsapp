@@ -36,7 +36,7 @@ object DishDao {
 
   def delete(id: Long) = {
     db.withSession { implicit session =>
-      //TODO remove the meal from scores as well.
+      dishscores.filter(_.dishId === id).delete
       dishes.filter(_.id === id).delete
     }
   }
