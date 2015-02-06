@@ -1,17 +1,17 @@
 Backlog:
 
 == DB ==
- - sorting
+ + sorting (on js site)
  - filters
 
  == Frontend ==
   JQuery: make page dynamic
   +  do not reload whole page on like
-  -  do not reload whole page on evaluation
+  +  do not reload whole page on evaluation
   +  do not reload whole page on sorting
   -  do not reload whole page when add a new meal
   +  do not reload whole page when removing
-  -  evaluate by hovering over stars
+  +  evaluate by hovering over stars
   - add logout
 
 == Backend ==

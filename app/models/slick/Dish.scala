@@ -10,6 +10,8 @@ import scala.slick.lifted.TableQuery
 case class Dish(id: Long, name: String, likes: Int = 0)
 
 object DishDao {
+
+
   val dishes: TableQuery[Dishes] = TableQuery[Dishes]
   val dishscores = TableQuery[DishScore]
 
@@ -21,6 +23,11 @@ object DishDao {
     dishes.sortBy(_.name.desc).list
   }
 
+  def queryValuesFor(username: String): Map[Long, Double] = db withSession { implicit session =>
+    dishscores.filter(_.username === username).map(row => (row.dishId, row.value)).toMap
+  }
+//ду муш д блумешток гизе зуншт фэдед р дэ
+
   def add(name: String) = {
     db.withSession { implicit session =>
       dishes += Dish(0, name)
@@ -29,6 +36,7 @@ object DishDao {
 
   def delete(id: Long) = {
     db.withSession { implicit session =>
+      //TODO remove the meal from scores as well.
       dishes.filter(_.id === id).delete
     }
   }
@@ -49,12 +57,9 @@ object DishDao {
     }
   }
 
-  def updateScore(username: String, dishId: Long, score: Long) = {
+  def updateScore(username: String, dishId: Long, score: Double) = {
     db.withSession { implicit session =>
-//      val q = for (s <- dishscores if s.username === username) yield s.value
-//      q.update(score).run
         dishscores.insertOrUpdate(username, dishId, score)
-//      dishscores +=(username, dishId, score)
     }
   }
   

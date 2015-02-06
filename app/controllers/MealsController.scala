@@ -11,15 +11,13 @@ import security.Secured
 object MealsController extends Controller with Secured {
   val mealForm = Form("name" -> nonEmptyText)
 
-  val evalForm = Form("mark" -> number(min = 0, max = 2))
-
   def javascriptRoutes = Action { implicit request =>
     Ok(
       Routes.javascriptRouter("jsRoutes")(
         routes.javascript.MealsController.addDish,
         routes.javascript.MealsController.addLike,
         routes.javascript.MealsController.deleteDish,
-        routes.javascript.MealsController.evaluateDish
+        routes.javascript.MealsController.rateDish
       )
     ).as("text/javascript")
   }
@@ -29,15 +27,9 @@ object MealsController extends Controller with Secured {
       db.withSession { implicit session =>
         val all: List[Dish] = DishDao.list
         val scores: Map[Long, Option[Double]] = DishDao.queryAvgScore.toMap
-        Ok(views.html.dishes(all, scores, mealForm))
+        val userValues: Map[Long, Double] = DishDao.queryValuesFor(username)
+        Ok(views.html.dishes(all, scores, userValues, mealForm))
       }
-  }
-
-  def overview(ord: String) = withAuth { username =>
-    implicit request =>
-      val scores: Map[Long, Option[Double]] = DishDao.queryAvgScore.toMap
-      val all: List[Dish] = if (ord == "asc") DishDao.list else DishDao.listDesc
-      Ok(views.html.dishes(all, scores, mealForm))
   }
 
   def addDish() = withAuth { username =>
@@ -59,9 +51,9 @@ object MealsController extends Controller with Secured {
       Redirect(routes.MealsController.allDishes())
   }
 
-  def evaluateDish(id: Long) = withAuth { username =>
+  def rateDish(id: Long, value: String) = withAuth { username =>
     implicit request =>
-      DishDao.updateScore(username, id, evalForm.bindFromRequest().get)
+      DishDao.updateScore(username, id, value.toDouble)
       Redirect(routes.MealsController.allDishes())
   }
 
