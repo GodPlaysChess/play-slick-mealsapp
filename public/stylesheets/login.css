@@ -70,3 +70,9 @@
 	display: block;
 	margin-top: 10px;
 }
+
+.with-error
+{
+	margin-top: 10px;
+	color: red;
+}

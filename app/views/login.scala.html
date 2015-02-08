@@ -15,6 +15,9 @@
                 @error.message
             </p>
         }
+        
+        <p>@form.error("err").map(err => err.message)</p>
+        
 
         @flash.get("success").map { message =>
             <p class="success">
@@ -36,6 +39,7 @@
                                 Sign in</button>
                             <button class="btn btn-lg btn-primary btn-block" type="submit" name="action" id="loginbutton" value="new">
                                 New user</button>
+                            <label class="pull-left with-error">@form.error("err").map(err => err.message)</label>
                             <a href="#" class="pull-right need-help">Need help? </a><span class="clearfix"></span>
                         </form>
                     </div>

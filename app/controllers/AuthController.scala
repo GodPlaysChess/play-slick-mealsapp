@@ -1,7 +1,7 @@
 package controllers
 
 import models.slick.UserDao
-import play.api.data.Form
+import play.api.data.{FormError, Form}
 import play.api.data.Forms._
 import play.api.mvc.{Action, AnyContent, Controller, Request}
 import views.html
@@ -36,8 +36,8 @@ object AuthController extends Controller {
       formWithErrors => BadRequest(html.login(formWithErrors)),
       user => UserDao.findByName(user._1) match {
         case Some(_) => if (UserDao.authenticate(user._1, user._2)) Redirect(routes.MealsController.allDishes()) withSession ("email" -> user._1)
-          else BadRequest("Wrong password")
-        case None => BadRequest("This user does not exist")
+          else Ok(views.html.login(loginForm.withError(FormError("err", "Wrong password"))))
+        case None => Ok(views.html.login(loginForm.withError(FormError("err", "This user does not exist"))))//BadRequest("This user does not exist")
       }
     )
   }
@@ -46,7 +46,7 @@ object AuthController extends Controller {
     loginForm.bindFromRequest.fold(
       formWithErrors => BadRequest(html.login(formWithErrors)),
       user => UserDao.findByName(user._1) match {
-        case Some(username) => BadRequest("This user is already created") 
+        case Some(username) => Ok(views.html.login(loginForm.withError(FormError("err", "This user does not exist"))))
         case None =>
           UserDao.create(user._1, user._2)
           Redirect(routes.MealsController.allDishes()) withSession ("email" -> user._1)
