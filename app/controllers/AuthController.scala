@@ -3,7 +3,7 @@ package controllers
 import models.slick.UserDao
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.mvc.{Action, Controller}
+import play.api.mvc.{Request, AnyContent, Action, Controller}
 import views.html
 
 object AuthController extends Controller {
@@ -12,11 +12,11 @@ object AuthController extends Controller {
     tuple(
       "email" -> text,
       "password" -> text
-    ) verifying("Invalid", result => result match {
+    ) /*verifying("Invalid", result => result match {
       case (name, password) =>
         UserDao.authenticate(name, password) == 1
       case _ => false
-    })
+    })*/
   )
 
   def login = Action { implicit request =>
@@ -24,9 +24,32 @@ object AuthController extends Controller {
   }
 
   def authenticate = Action { implicit request =>
+    request.body.asFormUrlEncoded.get("action").headOption match {
+      case Some("login") => oldUserAuth
+      case Some("new") => newUserAuth
+      case _ => BadRequest("This action is not allowed")
+    }
+  }
+
+  private def oldUserAuth(implicit req: Request[AnyContent]) = {
     loginForm.bindFromRequest.fold(
       formWithErrors => BadRequest(html.login(formWithErrors)),
-      user => Redirect(routes.MealsController.allDishes()) withSession ("email" -> user._1)
+      user => UserDao.findByName(user._1) match {
+        case Some(username) => Redirect(routes.MealsController.allDishes()) withSession ("email" -> user._1)
+        case None => BadRequest("This user does not exist")
+      }
+    )
+  }
+
+  def newUserAuth(implicit req: Request[AnyContent]) = {
+    loginForm.bindFromRequest.fold(
+      formWithErrors => BadRequest(html.login(formWithErrors)),
+      user => UserDao.findByName(user._1) match {
+        case Some(username) => BadRequest("This user is already created") 
+        case None =>
+          UserDao.create(user._1, user._2)
+          Redirect(routes.MealsController.allDishes()) withSession ("email" -> user._1)
+      }
     )
   }
 

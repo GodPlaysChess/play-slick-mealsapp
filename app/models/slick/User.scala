@@ -18,6 +18,12 @@ object UserDao {
       q1.list.headOption
     }
   }
+  
+  def create(name: String, password: String) = {
+    db withSession { implicit session =>
+      users += User(0l, name, password)
+    }
+  }
 
   def authenticate(name: String, password: String): Int = {
     db withSession { implicit session =>

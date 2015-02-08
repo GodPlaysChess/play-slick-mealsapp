@@ -7,7 +7,7 @@ import DatabaseSetup.db
 
 import scala.slick.lifted.TableQuery
 
-case class Dish(id: Long, name: String, likes: Int = 0)
+case class Dish(id: Long, name: String)
 
 object DishDao {
 
@@ -26,8 +26,9 @@ object DishDao {
   def queryValuesFor(username: String): Map[Long, Double] = db withSession { implicit session =>
     dishscores.filter(_.username === username).map(row => (row.dishId, row.value)).toMap
   }
-//ду муш д блумешток гизе зуншт фэдед р дэ
-
+  
+//ду муш д блумешток гизе зуншт фэдед р дэ 
+  
   def add(name: String) = {
     db.withSession { implicit session =>
       dishes += Dish(0, name)
@@ -38,13 +39,6 @@ object DishDao {
     db.withSession { implicit session =>
       dishscores.filter(_.dishId === id).delete
       dishes.filter(_.id === id).delete
-    }
-  }
-
-  def addLike(id: Long) = {
-    db.withSession { implicit session =>
-      val q = dishes.filter(_.id === id).map(_.likes)
-      q.update(q.first + 1)
     }
   }
 

@@ -21,7 +21,6 @@ GET         /logout                     controllers.AuthController.logout
 GET         /dishes                     controllers.MealsController.allDishes
 POST        /dishes                     controllers.MealsController.addDish
 POST        /dishes/:id                 controllers.MealsController.deleteDish(id: Long)
-GET         /dishes/like/:id            controllers.MealsController.addLike(id: Long)
 
 GET			/dishes/rate/:id/:num		controllers.MealsController.rateDish(id: Long, num: String)
 

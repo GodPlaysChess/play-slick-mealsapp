@@ -7,9 +7,8 @@ object Tables {
   class Dishes(tag: Tag) extends Table[models.slick.Dish](tag, "DISHES") {
     def id = column[Long]("DISH_ID", O.PrimaryKey, O.AutoInc)
     def name = column[String]("DISH_NAME")
-    def likes = column[Int]("LIKES") 
-    
-    override def * : ProvenShape[Dish] = (id, name, likes) <> (Dish.tupled, Dish.unapply)
+
+    override def * : ProvenShape[Dish] = (id, name) <> (Dish.tupled, Dish.unapply)
     def scores = foreignKey("DISH_FK", id, DishDao.dishscores)(_.dishId, onDelete = ForeignKeyAction.Cascade)
   }
 
