@@ -1,6 +1,7 @@
 package models.slick
 
 import models.slick.Tables.Users
+import security.PasswordHashing
 import scala.slick.driver.H2Driver.simple._
 import DatabaseSetup.db
 
@@ -21,15 +22,15 @@ object UserDao {
   
   def create(name: String, password: String) = {
     db withSession { implicit session =>
-      users += User(0l, name, password)
+      users += User(0l, name, PasswordHashing.encryptPassword(password))
     }
   }
 
-  def authenticate(name: String, password: String): Int = {
+  def authenticate(name: String, password: String): Boolean = {
     db withSession { implicit session =>
-      val q1 = for (u <- users if u.name === name && u.password === password) yield u
+      val q1 = for (u <- users if u.name === name && u.password === PasswordHashing.encryptPassword(password)) yield u
       println("^^^^^^^^" + Query(q1.length).first)
-      Query(q1.length).first
+      Query(q1.length).first == 1
     }
   }
 

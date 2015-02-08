@@ -4,7 +4,6 @@ import models.slick.UserDao
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.{Action, AnyContent, Controller, Request}
-import security.PasswordHashing
 import views.html
 
 object AuthController extends Controller {
@@ -36,7 +35,7 @@ object AuthController extends Controller {
     loginForm.bindFromRequest.fold(
       formWithErrors => BadRequest(html.login(formWithErrors)),
       user => UserDao.findByName(user._1) match {
-        case Some(existedUser) => if (PasswordHashing.encryptPassword(user._2) == existedUser.password) Redirect(routes.MealsController.allDishes()) withSession ("email" -> user._1)
+        case Some(_) => if (UserDao.authenticate(user._1, user._2)) Redirect(routes.MealsController.allDishes()) withSession ("email" -> user._1)
           else BadRequest("Wrong password")
         case None => BadRequest("This user does not exist")
       }
@@ -49,7 +48,7 @@ object AuthController extends Controller {
       user => UserDao.findByName(user._1) match {
         case Some(username) => BadRequest("This user is already created") 
         case None =>
-          UserDao.create(user._1, PasswordHashing.encryptPassword(user._2))
+          UserDao.create(user._1, user._2)
           Redirect(routes.MealsController.allDishes()) withSession ("email" -> user._1)
       }
     )

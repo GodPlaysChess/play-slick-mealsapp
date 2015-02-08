@@ -36,8 +36,8 @@ Backlog:
             suggestions/estimated value on unrated meal
 
 == Security ==
-- avoid injections on admin site
-- acc protection (hashed password, email verification)
+?- avoid injections on admin site // need to think more about it. Yet, no problems spotted.
++ acc protection (hashed password, email verification)
 
 
 == May be impossible ==

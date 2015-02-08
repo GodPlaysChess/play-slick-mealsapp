@@ -27,8 +27,6 @@ create table DISH_SCORES (
   USERNAME VARCHAR not null,
   PASSWORD VARCHAR not null
  );
- 
- insert into USERS (USERNAME, PASSWORD) values ('admin', 'admin');
 
 
 # --- !Downs
