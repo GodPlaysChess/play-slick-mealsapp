@@ -26,9 +26,9 @@ object DishDao {
   def queryValuesFor(username: String): Map[Long, Double] = db withSession { implicit session =>
     dishscores.filter(_.username === username).map(row => (row.dishId, row.value)).toMap
   }
-  
-//ду муш д блумешток гизе зуншт фэдед р дэ 
-  
+
+  //ду муш д блумешток гизе зуншт фэдед р дэ
+
   def add(name: String) = {
     db.withSession { implicit session =>
       dishes += Dish(0, name)
@@ -53,16 +53,21 @@ object DishDao {
 
   def updateScore(username: String, dishId: Long, score: Double) = {
     db.withSession { implicit session =>
-        dishscores.insertOrUpdate(username, dishId, score)
+      dishscores.insertOrUpdate(username, dishId, score)
     }
   }
-  
+
   def scores(id: Long): Seq[Double] = {
     db.withSession { implicit session =>
       dishscores.filter(_.dishId === id).map(_.value).buildColl[Seq]
     }
   }
 
+  def populateDatabase(entries: Seq[Dish]) = {
+    db withSession { implicit session =>
+      dishes ++= entries
+    }
+  }
 
   implicit class DishExtentions[C[_]](q: Query[Dishes, Double, C]) {
     def withScores = q.join(dishscores).on(_.id === _.dishId)
