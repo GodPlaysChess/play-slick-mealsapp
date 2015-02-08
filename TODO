@@ -50,12 +50,12 @@ Backlog:
 - test in real environment
 
 == Design ==
--Create expand on scroll ?? not yet relevant, unless have a huge amount of data
+?-Create expand on scroll ?? not yet relevant, unless have a huge amount of data
 
 
 ++++++++++++++++++++++ misc
 Choose DB framework  -> SORM  -> Slick       /   Anorm ans Slick are also worth knowing, but SORM is simplest anyway
 Choose DB engine  -> SQL? / H2  -> H2 for now
 Choose web server  -> Google Application Engine
-Choose
+
 

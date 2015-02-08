@@ -28,7 +28,6 @@ create table DISH_SCORES (
   PASSWORD VARCHAR not null
  );
  
- insert into USERS (USERNAME, PASSWORD) values ('gleb', 'gleb');
  insert into USERS (USERNAME, PASSWORD) values ('admin', 'admin');
 
 

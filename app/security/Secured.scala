@@ -8,7 +8,7 @@ trait Secured {
   def username(request: RequestHeader) = request.session.get("email")
 
   def onUnauthorized(request: RequestHeader): Result =
-      Results.Redirect(controllers.routes.AuthController.login())
+    Results.Redirect(controllers.routes.AuthController.login())
 
   def withAuth(f: => String => Request[AnyContent] => Result) =
     Security.Authenticated(username, onUnauthorized) { user =>
