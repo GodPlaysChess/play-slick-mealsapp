@@ -51,9 +51,8 @@ object MealsController extends Controller with Secured {
       Redirect(routes.MealsController.allDishes())
   }
   
-  def populateDatabase() = withAuth { username =>
-    implicit request =>
-      DishDao.populateDatabase(new HtmlParser().parseHtml(???))
+  def populateDatabase() = Action { implicit request =>
+      DishDao.populateDatabase(new Html5Parser().parseHtml)
       Redirect(routes.MealsController.allDishes())
   }
 

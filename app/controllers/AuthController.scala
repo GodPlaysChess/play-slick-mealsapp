@@ -37,7 +37,7 @@ object AuthController extends Controller {
       user => UserDao.findByName(user._1) match {
         case Some(_) => if (UserDao.authenticate(user._1, user._2)) Redirect(routes.MealsController.allDishes()) withSession ("email" -> user._1)
           else Ok(views.html.login(loginForm.withError(FormError("err", "Wrong password"))))
-        case None => Ok(views.html.login(loginForm.withError(FormError("err", "This user does not exist"))))//BadRequest("This user does not exist")
+        case None => Ok(views.html.login(loginForm.withError(FormError("err", "This user does not exist"))))
       }
     )
   }
