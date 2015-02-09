@@ -1,14 +1,21 @@
 package models.slick
 
 import scala.slick.driver.H2Driver.simple._
-import scala.slick.lifted.{ProvenShape}
+import scala.slick.lifted.ProvenShape
 
 object Tables {
   class Dishes(tag: Tag) extends Table[models.slick.Dish](tag, "DISHES") {
     def id = column[Long]("DISH_ID", O.PrimaryKey, O.AutoInc)
     def name = column[String]("DISH_NAME")
+    def code = column[String]("CODE")
+    def weigth = column[Int]("WEIGTH")
+    def calories = column[String]("CALORIES")
+    def proteins = column[Int]("PROTEINS")
+    def carbs = column[Int]("CARBS")
+    def fat = column[Int]("FAT")
+    def price = column[String]("PRICE")
 
-    override def * : ProvenShape[Dish] = (id, name) <> (Dish.tupled, Dish.unapply)
+    override def * : ProvenShape[Dish] = (id, name, code, weigth, calories, proteins, carbs, fat, price) <> (Dish.tupled, Dish.unapply)
     def scores = foreignKey("DISH_FK", id, DishDao.dishscores)(_.dishId, onDelete = ForeignKeyAction.Cascade)
   }
 

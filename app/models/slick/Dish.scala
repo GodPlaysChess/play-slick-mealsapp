@@ -7,7 +7,8 @@ import DatabaseSetup.db
 
 import scala.slick.lifted.TableQuery
 
-case class Dish(id: Long, name: String)
+//TODO add price per gramm, price per calorie, etc..
+case class Dish(id: Long, name: String, code: String = "H00000", weight: Int = 0, calories: String = "0", proteins: Int = 0, carbs: Int = 0, fat: Int = 0, price: String = "0")
 
 object DishDao {
 
@@ -26,8 +27,6 @@ object DishDao {
   def queryValuesFor(username: String): Map[Long, Double] = db withSession { implicit session =>
     dishscores.filter(_.username === username).map(row => (row.dishId, row.value)).toMap
   }
-
-  //ду муш д блумешток гизе зуншт фэдед р дэ
 
   def add(name: String) = {
     db.withSession { implicit session =>
