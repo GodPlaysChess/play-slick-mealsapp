@@ -3,22 +3,28 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        <title>@title</title>
-        <script src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
-        <script src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery-ui.min.js"))'></script>
-        <script src="@routes.Assets.at("javascripts/jquery-1.11.1.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.at("javascripts/jquery.dataTables.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.at("javascripts/jquery.tablesorter.min.js")" type="text/javascript"></script>
-        <script src="@routes.Assets.at("javascripts/jquery.tablesorter.js")" type="text/javascript"></script>
-        <script type="text/javascript" src="@routes.MealsController.javascriptRoutes"></script>
-        <link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap.min.css"))'>
-        <link rel='stylesheet' href='@routes.Assets.at("stylesheets/main.css")'>
-        <link rel='stylesheet' href='@routes.Assets.at("stylesheets/star-rating.min.css")'>
-        <script src="@routes.Assets.at("javascripts/libs/star-rating.min.js")" type="text/javascript"></script>
+	<head>
+		<title>@title</title>
+		<script type="text/javascript" src="@routes.MealsController.javascriptRoutes"></script>
+		@* jquery *@
+		<script src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
+		<script src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery-ui.min.js"))'></script>
+		<script src="@routes.Assets.at("javascripts/jquery-1.11.1.min.js")" type="text/javascript"></script>
+		@* table sorter *@
+		<script src="@routes.Assets.at("javascripts/jquery.tablesorter.js")" type="text/javascript"></script>
+		@* bootstrap *@
+		<link rel='stylesheet' href='@routes.WebJarAssets.at(WebJarAssets.locate("css/bootstrap.min.css"))'>
+		@* bootstrap table *@
+		<link rel='stylesheet' href='@routes.Assets.at("stylesheets/bootstrap-table.css")'>
+		<script src="@routes.Assets.at("javascripts/libs/bootstrap-table.js")" type="text/javascript"></script>
+		@* star rating *@
+		<link rel='stylesheet' href='@routes.Assets.at("stylesheets/star-rating.min.css")'>
+		<script src="@routes.Assets.at("javascripts/libs/star-rating.min.js")" type="text/javascript"></script>
 
-    </head>
-    <body>
-        @content
-    </body>
+
+		<link rel='stylesheet' href='@routes.Assets.at("stylesheets/main.css")'>
+	</head>
+	<body>
+	@content
+	</body>
 </html>

@@ -1,73 +1,75 @@
 @(meals: List[models.slick.Dish], scores: Map[Long, Option[Double]], uservalues: Map[Long, Double], mealForm: Form[String], username: String)
 
-@import helper._
+	@import helper._
 
 
-@main("All meals") {
+	@main("All meals") {
 
-	<script src="@routes.Assets.at("javascripts/dishes-ajax-calls.js")" type="text/javascript"></script>
-	<a href="/logout">Logout</a>
-	<div class="mainblock">
+		<script src="@routes.Assets.at("javascripts/dishes-ajax-calls.js")" type="text/javascript"></script>
+		<a href="/logout">Logout</a>
+		<div class="mainblock">
 
-		<table cellspacing="1" id="meal-table" class="tablesorter table-hover">
-			<thead>
-				<tr>
-					<th>Item name</th>
-					<th>Rating</th>
-					<th> </th>
-					<th>Weight </th>
-					<th>Calories </th>
-					<th>Protein </th>
-					<th>Fat </th>
-					<th>Carbs </th>
-					<th>Price </th>
-				</tr>
-			</thead>
+			<table cellspacing="1" id="meal-table" class="tablesorter table-hover table-bordered">
+				<thead>
+					<tr>
+						<th>Item name</th>
+						<th>Rating</th>
+						<th>Your mark</th>
+						<th>Weight </th>
+						<th>Calories </th>
+						<th>Protein </th>
+						<th>Fat </th>
+						<th>Carbs </th>
+						<th>Price </th>
+					</tr>
+				</thead>
 
-			<tbody>
-			@meals.map { meal =>
-				<tr database-id="@meal.id">
-					<td> @meal.name </td>
-					<td> @(scores.getOrElse(meal.id, Some(0d)).get.formatted("%2.2f")) </td>
+				<tbody>
+				@meals.map { meal =>
+					<tr database-id="@meal.id">
+						<td> @meal.name </td>
+						<td> @(scores.getOrElse(meal.id, Some(0d)).get.formatted("%2.2f")) </td>
 
-					<td>
-						<input
-						id="rating-system"
-						type="text"
-						class="rating"
-						value = "@uservalues.getOrElse(meal.id, 0)"
-						data-min="0" data-max="5" data-step="1"
-						data-show-caption="false"
-						data-size = "xs"
-						data-stars= "5"
-						data-glyphicon="false"
-						data-show-clear="false"
-						>
-					</td>
-					<td>@meal.weight </td>
-					<td>@meal.calories </td>
-					<td>@meal.proteins </td>
-					<td>@meal.fat </td>
-					<td>@meal.carbs </td>
-					<td>@meal.price </td>
+						<td>
+							<input
+							id="rating-system"
+							type="text"
+							class="rating"
+							value = "@uservalues.getOrElse(meal.id, 0)"
+							data-min="0" data-max="5" data-step="1"
+							data-show-caption="false"
+							data-size = "xs"
+							data-stars= "5"
+							data-glyphicon="false"
+							data-show-clear="false"
+							>
+						</td>
+						<td>@meal.weight </td>
+						<td>@meal.calories </td>
+						<td>@meal.proteins </td>
+						<td>@meal.fat </td>
+						<td>@meal.carbs </td>
+						<td>@meal.price </td>
 
-					<td>
-					@if(username == "admin"){
-						<button type="SUBMIT" class="btn btn-danger btn-sm remove-dish">
-							<span class="glyphicon glyphicon-remove"></span>
-						</button>
-					}
 
-				</tr>
+						@if(username == "admin") {
+							<td>
+								<button type="SUBMIT" class="btn btn-danger btn-sm remove-dish">
+									<span class="glyphicon glyphicon-remove"></span>
+								</button>
+							</td>
+						}
+
+					</tr>
+				}
+				</tbody>
+			</table>
+			<br/>
+			@if(username == "admin") {
+				@form(routes.MealsController.addDish()) {
+					@bootstrap3.textInputWithButton(mealForm("name"), "Type your meal here...")
+					@*for some reason, placeholder, yet cuts everything before first space*@
+				}
 			}
-			</tbody>
-		</table>
-		<br/>
-		@if(username == "admin") {
-			@form(routes.MealsController.addDish()) {
-				@bootstrap3.textInputWithButton(mealForm("name"), "Type your meal here...")
-				@*for some reason, placeholder, yet cuts everything before first space*@
-			}
-		}
-	</div>
-}
+		</div>
+	}

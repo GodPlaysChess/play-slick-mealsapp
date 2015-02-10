@@ -1,30 +1,7 @@
 
 /** table sorting */
 $(document).ready(function () {
-	$("#meal-table").tablesorter({
-		headers: {
-			3: {sorter: false},
-			4: {sorter: false}
-		}
-	});
-});
-
-/** add Like */
-$(document).ready(function () {
-	$(".plus-like").click(function () {
-		var id = $(this).closest("tr").attr("database-id");
-
-		var likeButton = $(this).find("span.glyphicon");
-		var oldval = +likeButton.text().trim();
-		$.ajax(jsRoutes.controllers.MealsController.addLike(+id))
-			.done(function () {
-				var newval = oldval + 1;
-				likeButton.text(" " + newval + " ");
-			})
-			.fail(function () {
-				console.log("failed")
-			});
-	});
+	$("#meal-table").tablesorter();
 });
 
 /** remove entry */
