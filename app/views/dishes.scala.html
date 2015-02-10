@@ -15,7 +15,12 @@
 					<th>Item name</th>
 					<th>Rating</th>
 					<th> </th>
-					<th> </th>
+					<th>Weight </th>
+					<th>Calories </th>
+					<th>Protein </th>
+					<th>Fat </th>
+					<th>Carbs </th>
+					<th>Price </th>
 				</tr>
 			</thead>
 
@@ -39,6 +44,12 @@
 						data-show-clear="false"
 						>
 					</td>
+					<td>@meal.weight </td>
+					<td>@meal.calories </td>
+					<td>@meal.proteins </td>
+					<td>@meal.fat </td>
+					<td>@meal.carbs </td>
+					<td>@meal.price </td>
 
 					<td>
 					@if(username == "admin"){

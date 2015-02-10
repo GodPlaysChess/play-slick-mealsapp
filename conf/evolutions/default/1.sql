@@ -12,14 +12,14 @@ create table DISHES (
   PRICE varchar
   );
 
-insert into DISHES (DISH_NAME) values ('Schweinschnitzel Mailand');
-insert into DISHES (DISH_NAME) values ('Hanhenbrust Zuricher Art');
-INSERT INTO DISHES (DISH_NAME) VALUES ('Piccolinos crap');
-insert into DISHES (DISH_NAME) values ('Potatoes with ');
-insert into DISHES (DISH_NAME) values ('Elephant');
-insert into DISHES (DISH_NAME) values ('Fish');
-insert into DISHES (DISH_NAME) values ('Goat');
-insert into DISHES (DISH_NAME) values ('Horse');
+-- insert into DISHES (DISH_NAME) values ('Schweinschnitzel Mailand');
+-- insert into DISHES (DISH_NAME) values ('Hanhenbrust Zuricher Art');
+-- INSERT INTO DISHES (DISH_NAME) VALUES ('Piccolinos crap');
+-- insert into DISHES (DISH_NAME) values ('Potatoes with ');
+-- insert into DISHES (DISH_NAME) values ('Elephant');
+-- insert into DISHES (DISH_NAME) values ('Fish');
+-- insert into DISHES (DISH_NAME) values ('Goat');
+-- insert into DISHES (DISH_NAME) values ('Horse');
 
 create table DISH_SCORES (
   USERNAME varchar not null,

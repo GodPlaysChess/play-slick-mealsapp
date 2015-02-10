@@ -8,10 +8,9 @@ import DatabaseSetup.db
 import scala.slick.lifted.TableQuery
 
 //TODO add price per gramm, price per calorie, etc..
-case class Dish(id: Long, name: String, code: String = "H00000", weight: Int = 0, calories: String = "0", proteins: Int = 0, carbs: Int = 0, fat: Int = 0, price: String = "0")
+case class Dish(id: Long = 0, name: String = "", code: String = "H00000", weight: Int = 0, calories: String = "0", proteins: Int = 0, carbs: Int = 0, fat: Int = 0, price: String = "0")
 
 object DishDao {
-
 
   val dishes: TableQuery[Dishes] = TableQuery[Dishes]
   val dishscores = TableQuery[DishScore]
