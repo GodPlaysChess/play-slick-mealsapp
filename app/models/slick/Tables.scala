@@ -16,7 +16,7 @@ object Tables {
     def price = column[String]("PRICE")
 
     override def * : ProvenShape[Dish] = (id, name, code, weigth, calories, proteins, carbs, fat, price) <> (Dish.tupled, Dish.unapply)
-    def scores = foreignKey("DISH_FK", id, DishDao.dishscores)(_.dishId, onDelete = ForeignKeyAction.Cascade)
+//    def scores = foreignKey("DISH_FK", id, DishDao.dishscores)(_.dishId, onDelete = ForeignKeyAction.Cascade)
   }
 
   /**

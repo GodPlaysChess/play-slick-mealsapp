@@ -1,7 +1,7 @@
 # --- !Ups
 
 create table DISHES (
-  DISH_ID BIGSERIAL,
+  DISH_ID BIGSERIAL PRIMARY KEY,
   DISH_NAME VARCHAR,
   CODE VARCHAR,
   WEIGTH INT,
@@ -21,7 +21,7 @@ create table DISH_SCORES (
  );
  
  create table USERS (
-  USER_ID BIGSERIAL,
+  USER_ID BIGSERIAL PRIMARY KEY,
   USERNAME VARCHAR not null,
   PASSWORD VARCHAR not null
  );
