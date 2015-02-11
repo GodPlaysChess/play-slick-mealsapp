@@ -14,7 +14,8 @@ libraryDependencies ++= Seq(
   "org.webjars" %% "webjars-play" % "2.3.0",
   "com.typesafe.slick" %% "slick" % "2.1.0",
   "org.slf4j" % "slf4j-nop" % "1.6.4",
-  "nu.validator.htmlparser" % "htmlparser" % "1.2.1"
+  "nu.validator.htmlparser" % "htmlparser" % "1.2.1",
+  "postgresql" % "postgresql" % "9.1-901-1.jdbc4"
 )
 
 
