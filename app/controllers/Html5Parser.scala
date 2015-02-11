@@ -8,11 +8,6 @@ import scala.xml.{NodeSeq, InputSource, SAXParser, Source}
 
 class Html5Parser extends NoBindingFactoryAdapter {
 
-  val test = Source.fromString(
-    """<html><head/><body><div class='main'><span>test1</span></div>
-  <div class='main'><span>test2</span></div></body></html>"""
-  )
-
   override def loadXML(source: InputSource, _p: SAXParser) = {
     loadXML(source)
   }
