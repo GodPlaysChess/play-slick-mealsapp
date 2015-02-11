@@ -1,6 +1,6 @@
-name := """play-scala-intro"""
+name := """play-slick-mealsapp"""
 
-version := "1.0-SNAPSHOT"
+version := "1.0"
 
 scalaVersion := "2.11.1"
 
