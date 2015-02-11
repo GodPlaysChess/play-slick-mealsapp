@@ -31,7 +31,7 @@ class Html5Parser extends NoBindingFactoryAdapter {
   //yet from file for testing purposes
   def parseHtml: Seq[Dish] = {
     import play.api.Play.current
-    val file = Play.application.classloader.getResource("testSource.html").getFile
+    val file = Play.application.classloader.getResource("test2.html").getFile
     val source = Source.fromFile(file)
     val htmlObject = loadXML(source)
 

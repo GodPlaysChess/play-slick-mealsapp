@@ -24,11 +24,12 @@ Backlog:
 ?- guest (now, create account is kinda guest)
  
 == General ==
-- stats on meal (on DB site. for example, consider where to store it. Separate table with joining on id?)
-- show stats (in new window? or just next to the chosen meal? Mb do something and then decide what's more convenient
-- show just your evaluations/preferences.
++ stats on meal (on DB site. for example, consider where to store it. Separate table with joining on id?)
++ show stats (in new window? or just next to the chosen meal? Mb do something and then decide what's more convenient
+?- show just your evaluations/preferences // not necessary, mb add to filter (eye) in the next version
++ find out how to get initial data. means read the initial html? or they have website? // yet parsing html, need to do it just once.
 
-- find out how to get initial data. means read the initial html? or they have website?
+- add image?
  
 == Algorithms ==
 - populate with random data (10 different ppl have random distribution over meals)

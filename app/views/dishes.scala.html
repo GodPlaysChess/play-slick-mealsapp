@@ -21,6 +21,8 @@
 						<th>Fat </th>
 						<th>Carbs </th>
 						<th>Price </th>
+						<th> eff price </th>
+						<th> eff energ </th>
 					</tr>
 				</thead>
 
@@ -29,7 +31,6 @@
 					<tr database-id="@meal.id">
 						<td> @meal.name </td>
 						<td> @(scores.getOrElse(meal.id, Some(0d)).get.formatted("%2.2f")) </td>
-
 						<td>
 							<input
 							id="rating-system"
@@ -50,7 +51,8 @@
 						<td>@meal.fat </td>
 						<td>@meal.carbs </td>
 						<td>@meal.price </td>
-
+						<td>@((meal.price.filter(_.isDigit).toDouble/meal.weight).formatted("%2.2f")) €/100g</td>
+						<td>@((meal.price.filter(_.isDigit).toDouble*100/(meal.calories.substring(5).filter(_.isDigit).toDouble*meal.weight)).formatted("%2.2f")) €/100kcal</td>
 
 						@if(username == "admin") {
 							<td>
@@ -68,7 +70,6 @@
 			@if(username == "admin") {
 				@form(routes.MealsController.addDish()) {
 					@bootstrap3.textInputWithButton(mealForm("name"), "Type your meal here...")
-					@*for some reason, placeholder, yet cuts everything before first space*@
 				}
 			}
 		</div>
