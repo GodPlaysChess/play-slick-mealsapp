@@ -15,7 +15,7 @@ object UserDao {
 
   def findByName(name: String): Option[User] = {
     db withSession { implicit session =>
-      val q1 = for (u <- users if u.name === name) yield u
+      val q1 = for (u <- users if u.username === name) yield u
       q1.list.headOption
     }
   }
@@ -28,7 +28,7 @@ object UserDao {
 
   def authenticate(name: String, password: String): Boolean = {
     db withSession { implicit session =>
-      val q1 = for (u <- users if u.name === name && u.password === PasswordHashing.encryptPassword(password)) yield u
+      val q1 = for (u <- users if u.username === name && u.password === PasswordHashing.encryptPassword(password)) yield u
       println("^^^^^^^^" + Query(q1.length).first)
       Query(q1.length).first == 1
     }
