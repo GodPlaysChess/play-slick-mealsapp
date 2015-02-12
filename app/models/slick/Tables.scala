@@ -4,7 +4,7 @@ import scala.slick.driver.H2Driver.simple._
 import scala.slick.lifted.ProvenShape
 
 object Tables {
-  class Dishes(tag: Tag) extends Table[models.slick.Dish](tag, "DISHES") {
+  class Dishes(tag: Tag) extends Table[models.slick.Dish](tag, "DISHES11") {
     def id = column[Long]("DISH_ID", O.PrimaryKey, O.AutoInc)
     def name = column[String]("DISH_NAME")
     def code = column[String]("CODE")
