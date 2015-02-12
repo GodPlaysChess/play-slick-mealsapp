@@ -11,15 +11,15 @@ case class Dish(id: Long = 0, name: String = "", code: String = "H00000", weight
 
 object DishDao {
 
-  val dishes: TableQuery[Dishes] = TableQuery[Dishes]
+  val dishes111: TableQuery[Dishes] = TableQuery[Dishes]
   val dishscores = TableQuery[DishScore]
 
   def list: List[Dish] = db.withSession { implicit session =>
-    dishes.sortBy(_.name.asc).list
+    dishes111.sortBy(_.name.asc).list
   }
 
   def listDesc: List[Dish] = db.withSession { implicit session =>
-    dishes.sortBy(_.name.desc).list
+    dishes111.sortBy(_.name.desc).list
   }
 
   def queryValuesFor(username: String): Map[Long, Double] = db withSession { implicit session =>
@@ -28,14 +28,14 @@ object DishDao {
 
   def add(name: String) = {
     db.withSession { implicit session =>
-      dishes += Dish(0, name)
+      dishes111 += Dish(0, name)
     }
   }
 
   def delete(id: Long) = {
     db.withSession { implicit session =>
       dishscores.filter(_.dishId === id).delete
-      dishes.filter(_.id === id).delete
+      dishes111.filter(_.id === id).delete
     }
   }
 
@@ -65,7 +65,7 @@ object DishDao {
     db withSession { implicit session =>
 //      ddl.createStatements.foreach(Logger.info(_))
 //      ddl.create
-      dishes ++= entries
+      dishes111 ++= entries
     }
   }
 
@@ -75,7 +75,7 @@ object DishDao {
 
   object Examples {
     val joinCondition = (d: Dishes, s: DishScore) => d.id === s.dishId
-    val joinQuery = dishes join dishscores on joinCondition
+    val joinQuery = dishes111 join dishscores on joinCondition
     // then can do  joinQuery foreach println
   }
 
