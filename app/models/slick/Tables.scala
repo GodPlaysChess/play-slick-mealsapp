@@ -29,7 +29,7 @@ object Tables {
 
   class DishScore(tag: Tag) extends Table[(String, Long, Double)](tag, "DISH_SCORES") {
     def username = column[String]("USERNAME")
-    def dishId = column[Long]("DISH_IDD")
+    def dishId = column[Long]("DISH_ID")
     def value = column[Double]("VALUE")
 
     override def * = (username, dishId, value)
