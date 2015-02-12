@@ -62,7 +62,9 @@ object DishDao {
   }
 
   def populateDatabase(entries: Seq[Dish]) = {
+    val ddl = dishes.ddl ++ UserDao.users.ddl ++ dishscores.ddl
     db withSession { implicit session =>
+      ddl.create
       dishes ++= entries
     }
   }
