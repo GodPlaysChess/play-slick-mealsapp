@@ -1,6 +1,7 @@
 package models.slick
 
 import models.slick.Tables._
+import play.api.Logger
 import scala.slick.driver.H2Driver.simple._
 import DatabaseSetup.db
 
@@ -64,6 +65,7 @@ object DishDao {
   def populateDatabase(entries: Seq[Dish]) = {
     val ddl = dishes.ddl ++ UserDao.users.ddl ++ dishscores.ddl
     db withSession { implicit session =>
+      ddl.createStatements.foreach(Logger.info)
       ddl.create
       dishes ++= entries
     }
