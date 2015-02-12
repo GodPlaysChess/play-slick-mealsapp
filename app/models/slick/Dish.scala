@@ -65,7 +65,7 @@ object DishDao {
   def populateDatabase(entries: Seq[Dish]) = {
     val ddl = dishes.ddl ++ UserDao.users.ddl ++ dishscores.ddl
     db withSession { implicit session =>
-      ddl.createStatements.foreach(Logger.info)
+      ddl.createStatements.foreach(Logger.info(_))
       ddl.create
       dishes ++= entries
     }
