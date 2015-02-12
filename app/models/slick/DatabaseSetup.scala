@@ -1,6 +1,6 @@
 package models.slick
 
-import play.api.Play
+import play.api.db.DB
 
 import scala.slick.driver.PostgresDriver.simple._
 
@@ -9,7 +9,8 @@ import scala.slick.driver.PostgresDriver.simple._
  */
 object DatabaseSetup {
 //  val db = Database.forURL("jdbc:h2:mem:play", driver = "org.h2.Driver")
-  private[this] val url = Play.current.configuration.getString("db.default.url").get
-  private[this] val driv = Play.current.configuration.getString("db.default.driver").get
-  val db = Database.forURL(url, driver = driv)
+//  private[this] val url = Play.current.configuration.getString("db.default.url").get
+//  private[this] val driv = Play.current.configuration.getString("db.default.driver").get
+//  val db = Database.forURL(url, driver = driv)
+  val db = Database.forDataSource(DB.getDataSource())
 }
