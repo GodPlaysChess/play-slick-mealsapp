@@ -12,5 +12,6 @@ object DatabaseSetup {
 //  private[this] val url = Play.current.configuration.getString("db.default.url").get
 //  private[this] val driv = Play.current.configuration.getString("db.default.driver").get
 //  val db = Database.forURL(url, driver = driv)
+  import play.api.Play.current
   val db = Database.forDataSource(DB.getDataSource())
 }
