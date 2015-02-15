@@ -49,7 +49,6 @@ object DishDao {
     }
   }
 
-  //update "dish_scores" set "value" = 3 where "username" = 'gleb' AND "dish_id" = 1; This is correct for sure
   def updateScore(username: String, dishId: Long, score: Double) = {
     db.withSession { implicit session =>
       val entry: lifted.Query[DishScore, (String, Long, Double), Seq] = dishscores.withFilter(_.username === username).withFilter(_.dishId === dishId)

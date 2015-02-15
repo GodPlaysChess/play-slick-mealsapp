@@ -24,5 +24,7 @@ POST        /dishes/:id                  controllers.MealsController.deleteDish(
 
 GET         /dishes/rate/:id/:num        controllers.MealsController.rateDish(id: Long, num: String)
 
-GET 		/create						controllers.MealsController.populateDatabase()
+GET         /create                      controllers.MealsController.populateDatabase()
+
+
 
