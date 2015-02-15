@@ -1,10 +1,10 @@
 package models.slick
 
+import models.slick.DatabaseSetup.db
 import models.slick.Tables._
+
 import scala.slick.driver.H2Driver.simple._
-import DatabaseSetup.db
-
-
+import scala.slick.lifted
 import scala.slick.lifted.TableQuery
 
 //TODO add price per gramm, price per calorie, etc..
@@ -49,9 +49,14 @@ object DishDao {
     }
   }
 
+  //update "dish_scores" set "value" = 3 where "username" = 'gleb' AND "dish_id" = 1; This is correct for sure
   def updateScore(username: String, dishId: Long, score: Double) = {
     db.withSession { implicit session =>
-      dishscores.insertOrUpdate(username, dishId, score)
+      val entry: lifted.Query[DishScore, (String, Long, Double), Seq] = dishscores.withFilter(_.username === username).withFilter(_.dishId === dishId)
+      entry.firstOption match {
+        case Some(_) => entry.map(_.value).update(score)
+        case None => dishscores.insert(username, dishId, score)
+      }
     }
   }
 
