@@ -25,7 +25,6 @@ class Html5Parser extends NoBindingFactoryAdapter {
     rootElem
   }
 
-  //yet from file for testing purposes
   def parseHtml: Seq[Dish] = {
     import play.api.Play.current
     val res: Option[InputStream] = Play.resourceAsStream("public/files/rawcontent.html")
