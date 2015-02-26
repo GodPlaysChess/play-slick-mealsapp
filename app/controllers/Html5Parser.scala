@@ -1,10 +1,12 @@
 package controllers
 
+import java.io.InputStream
+
 import models.slick.Dish
 import play.api.{Logger, Play}
 
 import scala.xml.parsing.NoBindingFactoryAdapter
-import scala.xml.{NodeSeq, InputSource, SAXParser, Source}
+import scala.xml.{InputSource, NodeSeq, SAXParser, Source}
 
 class Html5Parser extends NoBindingFactoryAdapter {
 
@@ -23,11 +25,10 @@ class Html5Parser extends NoBindingFactoryAdapter {
     rootElem
   }
 
-  //yet from file for testing purposes
   def parseHtml: Seq[Dish] = {
     import play.api.Play.current
-    val file = Play.application.classloader.getResource("test2.html").getFile
-    val source = Source.fromFile(file)
+    val res: Option[InputStream] = Play.resourceAsStream("public/files/rawcontent.html")
+    val source = Source.fromInputStream(res.get)
     val htmlObject = loadXML(source)
 
     (htmlObject \\ "tr")                                          // all rows
