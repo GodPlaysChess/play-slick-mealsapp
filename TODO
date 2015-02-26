@@ -9,7 +9,6 @@ Backlog:
   +  do not reload whole page on like
   +  do not reload whole page on evaluation
   +  do not reload whole page on sorting
-  -  do not reload whole page when add a new meal
   +  do not reload whole page when removing
   +  evaluate by hovering over stars
   + add logout
@@ -32,7 +31,7 @@ Backlog:
 - add image?
  
 == Algorithms ==
-- populate with random data (10 different ppl have random distribution over meals)
++ populate with random data (10 different ppl have random distribution over meals)
 - implement similarity rating (means this guy have similar taste, and this one is not)
             suggestions/estimated value on unrated meal
 
@@ -46,9 +45,9 @@ Backlog:
 - keep track of your orderings (stats : money spent, calories intake, bla-bla )
 
 
-============ Deploy to GAE ==================
-- deploy app to web server
-- test in real environment
+============ Deploy ==================
++ deploy app to web server
++ test in real environment
 
 == Design ==
 ?-Create expand on scroll ?? not yet relevant, unless have a huge amount of data

@@ -61,11 +61,11 @@ object DishDao {
   }
 
   def populateDatabase(entries: Seq[Dish]) = {
-//    val ddl = dishes.ddl ++ UserDao.users.ddl ++ dishscores.ddl
     db withSession { implicit session =>
-//      ddl.createStatements.foreach(Logger.info(_))
-//      ddl.create
-      dishes ++= entries
+      val allentriesNames: List[String] = dishes.map(_.name).list
+      val newEntries: Seq[Dish] = entries.filterNot(d => allentriesNames.contains(d.name))
+      // only which does not exists
+      dishes ++= newEntries
     }
   }
 
